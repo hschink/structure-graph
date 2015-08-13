@@ -136,10 +136,33 @@ public class SimpleStructureGraphNodeComparerTest {
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
+	@Test
+	public void detectsMissingMandatoryNode() throws StructureGraphComparisonException {
+		StructureGraphComparerTestHelper.givenRemovedNodes(currentGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(StructureGraphComparerTestHelper.cn3, structureGraphOriginal, expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn2, structureGraphOriginal, expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn5, structureGraphOriginal, expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn6, structureGraphOriginal, expectedModifications);
+
+		whenComparisonResultIsCreatedAgainstCurrentGraph();
+
+		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
 	private void whenComparisonResultIsCreated()
 			throws StructureGraphComparisonException {
 		StructureGraph structureGraphCurrent = new StructureGraph(currentGraph);
 
 		result = comparer.compare(structureGraphOriginal, structureGraphCurrent);
+	}
+
+	private void whenComparisonResultIsCreatedAgainstCurrentGraph() throws StructureGraphComparisonException {
+
+		StructureGraph structureGraphCurrent = new StructureGraph(currentGraph);
+
+		result = comparer.compare(structureGraphCurrent, structureGraphOriginal);
+
 	}
 }
