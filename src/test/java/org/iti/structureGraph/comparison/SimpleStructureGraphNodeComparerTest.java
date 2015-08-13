@@ -66,6 +66,13 @@ public class SimpleStructureGraphNodeComparerTest {
 	}
 
 	@Test
+	public void detectsIsomorphicGraphs() throws StructureGraphComparisonException {
+		whenComparisonResultIsCreated();
+
+		assertEquals(0, result.getNodeModifications().size());
+	}
+
+	@Test
 	public void detectsRemovedNodes() throws StructureGraphComparisonException {
 		StructureGraphComparerTestHelper.givenRemovedNodes(currentGraph);
 		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(structureGraphOriginal, expectedModifications);
