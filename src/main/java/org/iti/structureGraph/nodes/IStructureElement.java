@@ -21,7 +21,7 @@
 
 package org.iti.structureGraph.nodes;
 
-public interface IStructureElement {
+public interface IStructureElement extends IMandatoryElement {
 
 	public String getIdentifier();
 }
