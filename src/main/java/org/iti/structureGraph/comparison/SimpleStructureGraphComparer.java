@@ -34,6 +34,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 public class SimpleStructureGraphComparer implements IStructureGraphComparer {
 
+	@Override
 	public StructureGraphComparisonResult compare(IStructureGraph oldGraph,
 			IStructureGraph newGraph) {
 		StructureGraphComparisonResult result = new StructureGraphComparisonResult(oldGraph, newGraph);
@@ -60,7 +61,7 @@ public class SimpleStructureGraphComparer implements IStructureGraphComparer {
 		oldNodes.removeAll(newNodes);
 
 		return oldNodes;
-	}	
+	}
 
 	private List<String> getMissingPathes(IStructureGraph oldGraph,
 			IStructureGraph newGraph) {
