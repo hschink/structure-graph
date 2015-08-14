@@ -50,12 +50,12 @@ public class StatementStructureGraphNodeComparerTest {
 
 	@BeforeClass
 	public static void init() throws Exception {
-		structureGraph = StructureGraphComparerTestHelper.getOriginal();
+		structureGraph = StatementGraphComparerTestHelper.getOriginal();
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		statementGraph = StructureGraphComparerTestHelper.getCurrentGraph();
+		statementGraph = StatementGraphComparerTestHelper.getCurrentGraph();
 
 		expectedModifications.clear();
 
@@ -63,21 +63,39 @@ public class StatementStructureGraphNodeComparerTest {
 	}
 
 	@Test
-	public void detectsMissingMandatoryNode() throws StructureGraphComparisonException {
-		StructureGraphComparerTestHelper.givenRemovedNodes(statementGraph);
-		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(StructureGraphComparerTestHelper.cn3, structureGraph, expectedModifications);
-		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn2, structureGraph, expectedModifications);
-		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn5, structureGraph, expectedModifications);
-		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn6, structureGraph, expectedModifications);
-
-		whenComparisonResultIsCreatedAgainstCurrentGraph();
+	public void detectsSubgraphIsomorphism() throws StructureGraphComparisonException {
+		whenComparisonResultIsCreated();
 
 		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
-	private void whenComparisonResultIsCreatedAgainstCurrentGraph() throws StructureGraphComparisonException {
+	@Test
+	public void detectsMissingMandatoryNode() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenMissingMandatoryNode(statementGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn4, structureGraph, expectedModifications);
+
+		whenComparisonResultIsCreated();
+
+		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	@Test
+	public void handlesSuperfluousNodes() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenSuperfluousMandatoryNode(statementGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(StatementGraphComparerTestHelper.cn41, new StructureGraph(statementGraph), expectedModifications);
+
+		whenComparisonResultIsCreated();
+
+		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
 
 		StructureGraph structureGraphCurrent = new StructureGraph(statementGraph);
 
