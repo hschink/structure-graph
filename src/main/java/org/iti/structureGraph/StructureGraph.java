@@ -36,13 +36,13 @@ import org.jgrapht.graph.DefaultEdge;
 public class StructureGraph implements IStructureGraph {
 
 	private DirectedGraph<IStructureElement, DefaultEdge> graph;
-	
+
 	private Map<String, IStructureElement> elementsByIdentifer = new HashMap<>();
 	private Map<String, DefaultEdge> pathesByIdentifer = new HashMap<>();
-	
+
 	public StructureGraph(DirectedGraph<IStructureElement, DefaultEdge> graph) {
 		this.graph = graph;
-		
+
 		loadElementsByIdentifier();
 		loadEdgesByIdentifier();
 	}
@@ -78,7 +78,7 @@ public class StructureGraph implements IStructureGraph {
 	}
 
 	private List<IStructureElement> getElementPathElements(IStructureElement element, boolean toRootElement) {
-		IStructureElement currentElement = element; 
+		IStructureElement currentElement = element;
 		LinkedList<IStructureElement> elements = new LinkedList<>();
 		int elementCount = (toRootElement) ? -1 : 2;
 
@@ -93,7 +93,8 @@ public class StructureGraph implements IStructureGraph {
 		return elements;
 	}
 
-	private IStructureElement getParent(IStructureElement element) {
+	@Override
+	public IStructureElement getParent(IStructureElement element) {
 		List<DefaultEdge> incomingEdges = getIncomingEdges(element);
 
 		if (!incomingEdges.isEmpty()) {
@@ -105,7 +106,7 @@ public class StructureGraph implements IStructureGraph {
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
