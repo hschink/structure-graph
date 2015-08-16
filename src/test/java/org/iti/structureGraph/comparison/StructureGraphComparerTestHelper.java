@@ -136,10 +136,10 @@ public class StructureGraphComparerTestHelper {
 
 	static void givenExpectedPathRemovals(StructureGraph originalGraph,
 			Map<String, Type> expectedModifications) {
-		givenExpectedPathRemovals("cn1.Edge2", expectedModifications);
+		givenExpectedPathRemovals("re.Edge1(cn1.Edge2)", expectedModifications);
 		givenExpectedPathRemovals("re.Edge4", expectedModifications);
-		givenExpectedPathRemovals("cn2.Edge5", expectedModifications);
-		givenExpectedPathRemovals("cn2.Edge6", expectedModifications);
+		givenExpectedPathRemovals("re.Edge4(cn2.Edge5)", expectedModifications);
+		givenExpectedPathRemovals("re.Edge4(cn2.Edge6)", expectedModifications);
 	}
 
 	static void givenExpectedPathRemovals(String path,
@@ -165,7 +165,7 @@ public class StructureGraphComparerTestHelper {
 
 	static void givenExpectedPathAddition(DirectedGraph<IStructureElement, DefaultEdge> currentGraph,
 			Map<String, Type> expectedModifications) {
-		givenExpectedPathAddition("cn1.Edge7", expectedModifications);
+		givenExpectedPathAddition("re.Edge1(cn1.Edge7)", expectedModifications);
 		givenExpectedPathAddition("re.Edge8", expectedModifications);
 	}
 
@@ -202,12 +202,12 @@ public class StructureGraphComparerTestHelper {
 	}
 
 	public static void givenExpectPathRename( Map<String, Type> expectedModifications) {
-		expectedModifications.put("cn4.Edge6", Type.PathRenamed);
+		expectedModifications.put("re.Edge1(cn1.Edge3(cn4.Edge6))", Type.PathRenamed);
 	}
 
 	public static IModificationDetail givenExpectPathRenameDetail(
 			Map<String, IModificationDetail> expectedModificationDetails) {
-		return expectedModificationDetails.put("cn4.Edge6",
+		return expectedModificationDetails.put("re.Edge1(cn1.Edge3(cn4.Edge6))",
 				new OriginalStructureElement("cn2.Edge6"));
 	}
 

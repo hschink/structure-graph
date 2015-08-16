@@ -207,7 +207,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	}
 
 	private String getPath(IStructureElement element, IStructureGraph graph) {
-		return graph.getPath(element, false);
+		return graph.getPath(element, true);
 	}
 
 	private void exchangePaths(String removedPath, String addedPath, Type type) {

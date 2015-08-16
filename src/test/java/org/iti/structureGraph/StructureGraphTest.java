@@ -85,6 +85,11 @@ public class StructureGraphTest {
 	}
 
 	@Test
+	public void getPathes() {
+		assertEquals(graph1.edgeSet().size(), structureGraph.getPathes().size());
+	}
+
+	@Test
 	public void getStructureElement() {
 		Map<IStructureElement, String> identifiers = new HashMap<>();
 		identifiers.put(re, "re");
