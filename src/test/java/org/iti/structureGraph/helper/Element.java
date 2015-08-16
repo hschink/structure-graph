@@ -26,13 +26,25 @@ import org.iti.structureGraph.nodes.IStructureElement;
 public class Element implements IStructureElement {
 
 	private String identifier = "";
-	
+	private boolean mandatory = false;
+
 	public Element(String identifier) {
 		this.identifier = identifier;
+	}
+
+	public Element(String identifier, boolean mandatory) {
+		this(identifier);
+
+		this.mandatory = mandatory;
 	}
 
 	@Override
 	public String getIdentifier() {
 		return identifier;
+	}
+
+	@Override
+	public boolean isMandatory() {
+		return mandatory;
 	}
 }

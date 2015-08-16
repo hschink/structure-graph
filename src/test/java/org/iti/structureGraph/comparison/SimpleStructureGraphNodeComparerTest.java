@@ -44,13 +44,13 @@ public class SimpleStructureGraphNodeComparerTest {
 	private static IStructureGraphComparer comparer = new SimpleStructureGraphComparer();
 
 	private static StructureGraph structureGraphOriginal;
-	
+
 	private DirectedGraph<IStructureElement, DefaultEdge> currentGraph;
 
 	private Map<String, Type> expectedModifications = new HashMap<>();
 
 	private StructureGraphComparisonResult result;
-	
+
 	@BeforeClass
 	public static void init() throws Exception {
 		structureGraphOriginal = StructureGraphComparerTestHelper.getOriginal();
@@ -63,6 +63,13 @@ public class SimpleStructureGraphNodeComparerTest {
 		expectedModifications.clear();
 
 		result = null;
+	}
+
+	@Test
+	public void detectsIsomorphicGraphs() throws StructureGraphComparisonException {
+		whenComparisonResultIsCreated();
+
+		assertEquals(0, result.getNodeModifications().size());
 	}
 
 	@Test

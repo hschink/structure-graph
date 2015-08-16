@@ -38,6 +38,8 @@ public interface IStructureGraph {
 
 	IStructureElement getTargetElement(DefaultEdge edge);
 
+	IStructureElement getParent(IStructureElement structureElement);
+
 	String getIdentifier(IStructureElement structureElement);
 
 	String getPath(IStructureElement structureElement);
