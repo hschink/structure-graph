@@ -1,7 +1,9 @@
 package org.iti.structureGraph.comparison;
 
 import org.iti.structureGraph.IStructureGraph;
+import org.iti.structureGraph.comparison.result.IStructureModification;
 import org.iti.structureGraph.comparison.result.StructureGraphComparisonResult;
+import org.iti.structureGraph.comparison.result.StructurePathModification;
 import org.iti.structureGraph.comparison.result.Type;
 import org.iti.structureGraph.nodes.IStructureElement;
 
@@ -24,6 +26,12 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
 
 				result.removeModification(fullIdentifier);
+
+				for (IStructureModification modification : result.getPathModifications().values()) {
+					if (modification.getType() == Type.PathAdded && elementIsPartOfPath((StructurePathModification)modification, element)) {
+						result.removeModification(modification.getIdentifier());
+					}
+				}
 			}
 		}
 	}
@@ -36,4 +44,7 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		return parentInOldGraph != null && result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
 	}
 
+	private boolean elementIsPartOfPath(StructurePathModification modification, IStructureElement element) {
+		return modification.getSourceElement().equals(element) || modification.getTargetElement().equals(element);
+	}
 }
