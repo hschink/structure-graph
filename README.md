@@ -1,6 +1,6 @@
 # structure-graph #
 
-[![Build Status](https://travis-ci.org/hschink/structure-graph.png?branch=master)](https://travis-ci.org/hschink/structure-graphs)
+[![Build Status](https://travis-ci.org/hschink/structure-graph.png?branch=master)](https://travis-ci.org/hschink/structure-graph)
 
 **Experimental** library to represent source code structures
 
