@@ -30,7 +30,8 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 				result.removeModification(fullIdentifier);
 
 				for (IStructureModification modification : result.getPathModifications().values()) {
-					if (modification.getType() == Type.PathAdded && elementIsPartOfPath((StructurePathModification)modification, element)) {
+					if (modification.getType() == Type.PathAdded
+							&& elementIsPartOfPath((StructurePathModification) modification, element)) {
 						result.removeModification(modification.getIdentifier());
 					}
 				}
@@ -61,7 +62,8 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		String fullIdentifierParent = result.getNewGraph().getIdentifier(parent);
 		IStructureElement parentInOldGraph = result.getOldGraph().getStructureElement(fullIdentifierParent);
 
-		return parentInOldGraph != null && result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
+		return parentInOldGraph != null
+				&& result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
 	}
 
 	private boolean elementIsPartOfPath(StructurePathModification modification, IStructureElement element) {
