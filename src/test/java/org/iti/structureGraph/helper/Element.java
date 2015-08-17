@@ -27,15 +27,17 @@ public class Element implements IStructureElement {
 
 	private String identifier = "";
 	private boolean mandatory = false;
+	private boolean optionalList = false;
 
 	public Element(String identifier) {
 		this.identifier = identifier;
 	}
 
-	public Element(String identifier, boolean mandatory) {
+	public Element(String identifier, boolean mandatory, boolean optionalList) {
 		this(identifier);
 
 		this.mandatory = mandatory;
+		this.optionalList = optionalList;
 	}
 
 	@Override
@@ -46,5 +48,10 @@ public class Element implements IStructureElement {
 	@Override
 	public boolean isMandatory() {
 		return mandatory;
+	}
+
+	@Override
+	public boolean isOptionalList() {
+		return optionalList;
 	}
 }

@@ -13,14 +13,14 @@ public class StatementGraphComparerTestHelper {
 
 	static Element cn1 = new Element("cn1");
 	static Element cn10 = new Element("cn10");
-	static Element cn11 = new Element("cn11", true);
-	static Element cn12 = new Element("cn12", true);
-	static Element cn13 = new Element("cn13", true);
+	static Element cn11 = new Element("cn11", true, false);
+	static Element cn12 = new Element("cn12", true, false);
+	static Element cn13 = new Element("cn13", true, false);
 
 	static Element cn2 = new Element("cn2");
 	static Element cn20 = new Element("cn20");
-	static Element cn21 = new Element("cn21", true);
-	static Element cn22 = new Element("cn22", true);
+	static Element cn21 = new Element("cn21", true, false);
+	static Element cn22 = new Element("cn22", true, false);
 
 	static StructureGraph getOriginal() {
 		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
