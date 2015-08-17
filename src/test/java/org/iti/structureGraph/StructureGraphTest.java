@@ -51,7 +51,7 @@ import org.junit.runners.JUnit4;
 public class StructureGraphTest {
 
 	private static StructureGraph structureGraph;
-	
+
 	private static Element re = new Element("re");
 	private static Element cn1 = new Element("cn1");
 	private static Element cn2 = new Element("cn2");
@@ -61,11 +61,11 @@ public class StructureGraphTest {
 	private static Element cn6 = new Element("cn6");
 	
 	private static DirectedGraph<IStructureElement, DefaultEdge> graph1;
-	
+
 	@BeforeClass
 	public static void init() throws Exception {
 		graph1 = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
-		
+
 		graph1.addVertex(re);
 		graph1.addVertex(cn1);
 		graph1.addVertex(cn2);
