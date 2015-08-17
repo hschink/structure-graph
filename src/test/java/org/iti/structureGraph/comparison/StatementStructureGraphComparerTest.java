@@ -74,7 +74,7 @@ public class StatementStructureGraphComparerTest {
 	@Test
 	public void detectsMissingMandatoryNode() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenMissingMandatoryNode(statementGraph);
-		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn4, structureGraph, expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn12, structureGraph, expectedModifications);
 
 		whenComparisonResultIsCreated();
 
@@ -86,7 +86,7 @@ public class StatementStructureGraphComparerTest {
 	@Test
 	public void handlesSuperfluousNodes() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenSuperfluousMandatoryNode(statementGraph);
-		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(StatementGraphComparerTestHelper.cn41, new StructureGraph(statementGraph), expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedNodeRemovals(StatementGraphComparerTestHelper.cn13, new StructureGraph(statementGraph), expectedModifications);
 
 		whenComparisonResultIsCreated();
 
