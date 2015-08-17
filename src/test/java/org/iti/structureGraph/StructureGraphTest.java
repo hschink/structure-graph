@@ -101,7 +101,7 @@ public class StructureGraphTest {
 		identifiers.put(cn6, "re.Edge4(cn2.Edge6(cn6))");
 
 		for (Entry<IStructureElement, String> entry : identifiers.entrySet()) {
-			assertEquals(String.format("Cannot find path %s in graph!", entry.getValue()),
+			assertEquals(String.format("Cannot find path \"%s\" in graph!", entry.getValue()),
 					entry.getKey(),
 					structureGraph.getStructureElement(entry.getValue()));
 		}
@@ -119,7 +119,7 @@ public class StructureGraphTest {
 		structureElements.put("re.Edge4(cn2.Edge6(cn6))", cn6);
 
 		for (Entry<String, IStructureElement> entry : structureElements.entrySet()) {
-			assertEquals(String.format("Cannot find element %s in graph!", entry.getValue()),
+			assertEquals(String.format("Cannot find element \"%s\" in graph!", entry.getValue().getIdentifier()),
 					entry.getKey(),
 					structureGraph.getIdentifier(entry.getValue()));
 		}
@@ -137,7 +137,7 @@ public class StructureGraphTest {
 		paths.put(cn6, "re.Edge4(cn2.Edge6)");
 
 		for (Entry<IStructureElement, String> entry : paths.entrySet()) {
-			assertEquals(String.format("Cannot find path %s in graph!", entry.getValue()),
+			assertEquals(String.format("Cannot find path \"%s\" in graph!", entry.getValue()),
 					entry.getValue(),
 					structureGraph.getPath(entry.getKey()));
 		}
@@ -155,7 +155,7 @@ public class StructureGraphTest {
 		identifiers.add("re.Edge4(cn2.Edge6(cn6))");
 
 		for (String identifier : identifiers) {
-			assertTrue(String.format("Cannot find identifier %s in list!", identifier),
+			assertTrue(String.format("Cannot find identifier \"%s\" in list!", identifier),
 					structureGraph.getIdentifiers().contains(identifier));
 		}
 	}
@@ -173,7 +173,7 @@ public class StructureGraphTest {
 		structureElements.put("re.Edge4(cn2.Edge6)", 1);
 
 		for (Entry<String, Integer> entry : structureElements.entrySet()) {
-			assertEquals(String.format("Cannot find element %s in graph!", entry.getKey()),
+			assertEquals(String.format("Cannot find element \"%s\" in graph!", entry.getKey()),
 					entry.getValue().intValue(),
 					structureGraph.getStructureElements(entry.getKey()).size());
 		}
@@ -192,7 +192,7 @@ public class StructureGraphTest {
 		structureElements.put("re.Edge4(cn2.Edge6)", 1);
 
 		for (Entry<String, Integer> entry : structureElements.entrySet()) {
-			assertEquals(String.format("Cannot find element %s in graph!", entry.getKey()),
+			assertEquals(String.format("Cannot find element \"%s\" in graph!", entry.getKey()),
 					entry.getValue().intValue(),
 					structureGraph.getStructureElements(entry.getKey(), true).size());
 		}
