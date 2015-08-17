@@ -61,10 +61,9 @@ public class StructureGraph implements IStructureGraph {
 			for (DefaultEdge incomingEdge : incomingEdges) {
 				for (IStructureElement relatedElement : graph.vertexSet()) {
 					if (graph.outgoingEdgesOf(relatedElement).contains(incomingEdge)) {
-						List<IStructureElement> pathElements = new ArrayList<>();
+						LinkedList<IStructureElement> pathElements = new LinkedList<>(getElementPathElements(relatedElement));
 
-						pathElements.add(relatedElement);
-						pathElements.add(element);
+						pathElements.addLast(element);
 
 						pathesByIdentifer.put(getPathString(pathElements, false), incomingEdge);
 					}

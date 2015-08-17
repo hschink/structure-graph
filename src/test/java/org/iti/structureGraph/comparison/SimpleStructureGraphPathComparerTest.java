@@ -44,13 +44,13 @@ public class SimpleStructureGraphPathComparerTest {
 	private static IStructureGraphComparer comparer = new SimpleStructureGraphComparer();
 
 	private static StructureGraph structureGraphOriginal;
-	
+
 	private DirectedGraph<IStructureElement, DefaultEdge> currentGraph;
 
 	private Map<String, Type> expectedModifications = new HashMap<>();
 
 	private StructureGraphComparisonResult result;
-	
+
 	@BeforeClass
 	public static void init() throws Exception {
 		structureGraphOriginal = StructureGraphComparerTestHelper.getOriginal();
@@ -115,8 +115,8 @@ public class SimpleStructureGraphPathComparerTest {
 	@Test
 	public void detectsMovedPathes() throws StructureGraphComparisonException {
 		StructureGraphComparerTestHelper.givenMovedNode(currentGraph);
-		StructureGraphComparerTestHelper.givenExpectedPathRemovals("cn2.Edge6", expectedModifications);
-		StructureGraphComparerTestHelper.givenExpectedPathAddition("cn4.Edge6", expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedPathRemovals("re.Edge4(cn2.Edge6)", expectedModifications);
+		StructureGraphComparerTestHelper.givenExpectedPathAddition("re.Edge1(cn1.Edge3(cn4.Edge6))", expectedModifications);
 
 		whenComparisonResultIsCreated();
 

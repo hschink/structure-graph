@@ -36,7 +36,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class StatementStructureGraphNodeComparerTest {
+public class StatementStructureGraphComparerTest {
 
 	private static IStructureGraphComparer comparer = new StatementStructureGraphComparer();
 
@@ -66,7 +66,7 @@ public class StatementStructureGraphNodeComparerTest {
 	public void detectsSubgraphIsomorphism() throws StructureGraphComparisonException {
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -78,7 +78,7 @@ public class StatementStructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -90,7 +90,7 @@ public class StatementStructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}

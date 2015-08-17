@@ -166,7 +166,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		for (Entry<String, List<IStructureElement>> removedInPath : removedNodesByPath.entrySet()) {
 			for (IStructureElement removedElement : removedInPath.getValue()) {
 				IStructureElement movedElement = findMovedElement(removedElement);
-				
+
 				exchangeNode(removedElement, movedElement, Type.NodeMoved);
 			}
 		}
@@ -174,13 +174,13 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 
 	private IStructureElement findMovedElement(IStructureElement element) throws AmbiguousMoveException {
 		Collection<IStructureElement> addedElements;
-		
+
 		addedElements = result.getElementsByIdentifier(element.getIdentifier(), Type.NodeAdded);
 
 		switch (addedElements.size()) {
 			case 0: return null;
-		
-			case 1: 
+
+			case 1:
 				IStructureElement addedElement = addedElements.iterator().next();
 
 				return addedElement;
@@ -207,7 +207,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	}
 
 	private String getPath(IStructureElement element, IStructureGraph graph) {
-		return graph.getPath(element, false);
+		return graph.getPath(element, true);
 	}
 
 	private void exchangePaths(String removedPath, String addedPath, Type type) {
