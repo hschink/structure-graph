@@ -17,6 +17,8 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 
 		removeNonMandatoryNodeAdditions(result);
 
+		removeOptionalListNodeAdditions(result);
+
 		return result;
 	}
 
@@ -31,6 +33,24 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 					if (modification.getType() == Type.PathAdded && elementIsPartOfPath((StructurePathModification)modification, element)) {
 						result.removeModification(modification.getIdentifier());
 					}
+				}
+			}
+		}
+	}
+
+	private void removeOptionalListNodeAdditions(StructureGraphComparisonResult result) {
+		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
+			if (element.isOptionalList() && parentExists(result, element)) {
+				String optionalListElementPath = result.getNewGraph().getPath(element);
+				String fullIdentifier = result.getNewGraph().getIdentifier(element);
+
+				result.removeModification(fullIdentifier);
+
+				for (IStructureElement optionalListElement : result.getOldGraph()
+						.getStructureElements(optionalListElementPath)) {
+					fullIdentifier = result.getOldGraph().getIdentifier(optionalListElement);
+
+					result.removeModification(fullIdentifier);
 				}
 			}
 		}
