@@ -22,6 +22,14 @@ public class StatementGraphComparerTestHelper {
 	static Element cn21 = new Element("cn21", true, false);
 	static Element cn22 = new Element("cn22", true, false);
 
+	static Element cn3 = new Element("cn3");
+	static Element cn30 = new Element("cn30");
+	static Element cn31 = new Element("cn31", true, false);
+	static Element cn32 = new Element("cn32", true, false);
+	static Element cn33 = new Element("cn33", true, true);
+	static Element cn330 = new Element("cn330", true, false);
+	static Element cn331 = new Element("cn331", true, false);
+
 	static StructureGraph getOriginal() {
 		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
 
@@ -29,10 +37,17 @@ public class StatementGraphComparerTestHelper {
 		originalGraph.addVertex(cn10);
 		originalGraph.addVertex(cn11);
 		originalGraph.addVertex(cn12);
+
 		originalGraph.addVertex(cn2);
 		originalGraph.addVertex(cn20);
 		originalGraph.addVertex(cn21);
 		originalGraph.addVertex(cn22);
+
+		originalGraph.addVertex(cn3);
+		originalGraph.addVertex(cn30);
+		originalGraph.addVertex(cn31);
+		originalGraph.addVertex(cn32);
+		originalGraph.addVertex(cn33);
 
 		originalGraph.addEdge(cn1, cn10, new Edge2());
 		originalGraph.addEdge(cn10, cn11, new Edge3());
@@ -41,6 +56,11 @@ public class StatementGraphComparerTestHelper {
 		originalGraph.addEdge(cn2, cn20, new Edge2());
 		originalGraph.addEdge(cn20, cn21, new Edge3());
 		originalGraph.addEdge(cn20, cn22, new Edge3());
+
+		originalGraph.addEdge(cn3, cn30, new Edge2());
+		originalGraph.addEdge(cn30, cn31, new Edge3());
+		originalGraph.addEdge(cn30, cn32, new Edge3());
+		originalGraph.addEdge(cn30, cn33, new Edge3());
 
 		return new StructureGraph(originalGraph);
 	}
@@ -53,9 +73,22 @@ public class StatementGraphComparerTestHelper {
 		currentGraph.addVertex(cn11);
 		currentGraph.addVertex(cn12);
 
+		currentGraph.addVertex(cn3);
+		currentGraph.addVertex(cn30);
+		currentGraph.addVertex(cn31);
+		currentGraph.addVertex(cn32);
+		currentGraph.addVertex(cn330);
+		currentGraph.addVertex(cn331);
+
 		currentGraph.addEdge(cn1, cn10, new Edge2());
 		currentGraph.addEdge(cn10, cn11, new Edge3());
 		currentGraph.addEdge(cn10, cn12, new Edge3());
+
+		currentGraph.addEdge(cn3, cn30, new Edge2());
+		currentGraph.addEdge(cn30, cn31, new Edge3());
+		currentGraph.addEdge(cn30, cn32, new Edge3());
+		currentGraph.addEdge(cn30, cn330, new Edge3());
+		currentGraph.addEdge(cn30, cn331, new Edge3());
 
 		return currentGraph;
 	}
@@ -68,5 +101,10 @@ public class StatementGraphComparerTestHelper {
 		graph.addVertex(cn13);
 
 		graph.addEdge(cn10, cn13, new Edge3());
+	}
+
+	public static void givenMissingMandatoryNodeNextToOptionalListNode(
+			DirectedGraph<IStructureElement, DefaultEdge> graph) {
+		graph.removeVertex(cn32);
 	}
 }

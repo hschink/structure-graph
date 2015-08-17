@@ -95,6 +95,18 @@ public class StatementStructureGraphComparerTest {
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
+	@Test
+	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(statementGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn32, structureGraph, expectedModifications);
+
+		whenComparisonResultIsCreated();
+
+		assertEquals(expectedModifications.size(), result.getModifications().size());
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
 	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
 
 		StructureGraph structureGraphCurrent = new StructureGraph(statementGraph);
