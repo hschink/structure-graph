@@ -43,7 +43,7 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 
 	private void removeOptionalListNodeAdditions(StructureGraphComparisonResult result) {
 		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
-			if (element.isOptionalList() && parentExists(result, element)) {
+			if (element.isOptionalList()) {
 				String optionalListElementPath = result.getNewGraph().getPath(element);
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
 
