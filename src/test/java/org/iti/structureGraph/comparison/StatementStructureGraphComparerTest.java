@@ -107,6 +107,17 @@ public class StatementStructureGraphComparerTest {
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
+	@Test
+	public void handlesMissingOptionalParameter() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenParentNodeWithOptionalListChildIsMissing(statementGraph);
+
+		whenComparisonResultIsCreated();
+
+		assertEquals(expectedModifications.size(), result.getModifications().size());
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
 	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
 
 		StructureGraph structureGraphCurrent = new StructureGraph(statementGraph);

@@ -26,9 +26,9 @@ public class StatementGraphComparerTestHelper {
 	static Element cn30 = new Element("cn30");
 	static Element cn31 = new Element("cn31", true, false);
 	static Element cn32 = new Element("cn32", true, false);
-	static Element cn33 = new Element("cn33", true, true);
-	static Element cn330 = new Element("cn330", true, false);
-	static Element cn331 = new Element("cn331", true, false);
+	static Element cn33 = new Element("cn33", false, true);
+	static Element cn330 = new Element("cn330", false, false);
+	static Element cn331 = new Element("cn331", false, false);
 
 	static StructureGraph getOriginal() {
 		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
@@ -106,5 +106,13 @@ public class StatementGraphComparerTestHelper {
 	public static void givenMissingMandatoryNodeNextToOptionalListNode(
 			DirectedGraph<IStructureElement, DefaultEdge> graph) {
 		graph.removeVertex(cn32);
+	}
+
+	public static void givenParentNodeWithOptionalListChildIsMissing(DirectedGraph<IStructureElement, DefaultEdge> graph) {
+		graph.removeVertex(cn30);
+		graph.removeVertex(cn31);
+		graph.removeVertex(cn32);
+		graph.removeVertex(cn330);
+		graph.removeVertex(cn331);
 	}
 }
