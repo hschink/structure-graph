@@ -24,10 +24,12 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 
 	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result) {
 		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
-			if (!(element.isMandatory() && parentExists(result, element))) {
+			if (!(element.isOptionalList() || (element.isMandatory() && parentExists(result, element)))) {
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
+				String path = result.getNewGraph().getPath(element);
 
 				result.removeModification(fullIdentifier);
+				result.removeModification(path);
 
 				for (IStructureModification modification : result.getPathModifications().values()) {
 					if (modification.getType() == Type.PathAdded
