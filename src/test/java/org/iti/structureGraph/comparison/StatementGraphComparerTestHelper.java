@@ -29,6 +29,7 @@ public class StatementGraphComparerTestHelper {
 	static Element cn33 = new Element("cn33", false, true);
 	static Element cn330 = new Element("cn330", false, false);
 	static Element cn331 = new Element("cn331", false, false);
+	static Element cn332 = new Element("cn332", false, false);
 
 	static StructureGraph getOriginal() {
 		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
@@ -79,6 +80,7 @@ public class StatementGraphComparerTestHelper {
 		currentGraph.addVertex(cn32);
 		currentGraph.addVertex(cn330);
 		currentGraph.addVertex(cn331);
+		currentGraph.addVertex(cn332);
 
 		currentGraph.addEdge(cn1, cn10, new Edge2());
 		currentGraph.addEdge(cn10, cn11, new Edge3());
@@ -89,6 +91,7 @@ public class StatementGraphComparerTestHelper {
 		currentGraph.addEdge(cn30, cn32, new Edge3());
 		currentGraph.addEdge(cn30, cn330, new Edge3());
 		currentGraph.addEdge(cn30, cn331, new Edge3());
+		currentGraph.addEdge(cn30, cn332, new Edge3());
 
 		return currentGraph;
 	}
@@ -114,5 +117,6 @@ public class StatementGraphComparerTestHelper {
 		graph.removeVertex(cn32);
 		graph.removeVertex(cn330);
 		graph.removeVertex(cn331);
+		graph.removeVertex(cn332);
 	}
 }
