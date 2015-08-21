@@ -214,6 +214,9 @@ public class StructureGraphComparerTestHelper {
 	static void assertModificationExpectations(
 			Map<String, Type> expectedModifications,
 			StructureGraphComparisonResult result) {
+
+		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
+
 		for (Entry<String, Type> expectation : expectedModifications.entrySet()) {
 			assertNotNull(result.getModifications().get(expectation.getKey()));
 			assertEquals(expectation.getKey(),

@@ -66,9 +66,7 @@ public class StatementStructureGraphComparerTest {
 	public void detectsSubgraphIsomorphism() throws StructureGraphComparisonException {
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
-		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+		assertEquals(0, result.getModifications().size());
 	}
 
 	@Test
@@ -77,8 +75,6 @@ public class StatementStructureGraphComparerTest {
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn12, structureGraph, expectedModifications);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -90,8 +86,6 @@ public class StatementStructureGraphComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -102,8 +96,6 @@ public class StatementStructureGraphComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -112,8 +104,6 @@ public class StatementStructureGraphComparerTest {
 		StatementGraphComparerTestHelper.givenParentNodeWithOptionalListChildIsMissing(statementGraph);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}

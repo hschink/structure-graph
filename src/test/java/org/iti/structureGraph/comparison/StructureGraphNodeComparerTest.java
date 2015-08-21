@@ -21,15 +21,10 @@
 
 package org.iti.structureGraph.comparison;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iti.structureGraph.StructureGraph;
-import org.iti.structureGraph.comparison.IStructureGraphComparer;
-import org.iti.structureGraph.comparison.StructureGraphComparer;
-import org.iti.structureGraph.comparison.StructureGraphComparisonException;
 import org.iti.structureGraph.comparison.StructureGraphComparer.AmbiguousMoveException;
 import org.iti.structureGraph.comparison.StructureGraphComparer.AmbiguousRenameException;
 import org.iti.structureGraph.comparison.result.IModificationDetail;
@@ -50,7 +45,7 @@ public class StructureGraphNodeComparerTest {
 	private static IStructureGraphComparer comparer = new StructureGraphComparer();
 
 	private static StructureGraph structureGraphOriginal;
-	
+
 	private DirectedGraph<IStructureElement, DefaultEdge> currentGraph;
 
 	private Map<String, Type> expectedModifications = new HashMap<>();
@@ -81,8 +76,6 @@ public class StructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 		StructureGraphComparerTestHelper.assertNodeModificationDetailExpectations(expectedModificationDetails, result);
 	}
@@ -94,8 +87,6 @@ public class StructureGraphNodeComparerTest {
 		StructureGraphComparerTestHelper.givenExpectAdditionDetails(currentGraph, expectedModificationDetails);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 		StructureGraphComparerTestHelper.assertNodeModificationDetailExpectations(expectedModificationDetails, result);
@@ -112,8 +103,6 @@ public class StructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 		StructureGraphComparerTestHelper.assertNodeModificationDetailExpectations(expectedModificationDetails, result);
 	}
@@ -126,8 +115,6 @@ public class StructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 		StructureGraphComparerTestHelper.assertNodeModificationDetailExpectations(expectedModificationDetails, result);
 	}
@@ -139,8 +126,6 @@ public class StructureGraphNodeComparerTest {
 		StructureGraphComparerTestHelper.givenExpectMoveDetail(expectedModificationDetails);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 		StructureGraphComparerTestHelper.assertNodeModificationDetailExpectations(expectedModificationDetails, result);
@@ -157,11 +142,9 @@ public class StructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
-	
+
 	@Test(expected=AmbiguousRenameException.class)
 	public void throwsAmbiguousRenameException() throws StructureGraphComparisonException {
 		Element renamedElement1 = new Element("cn3r1");
