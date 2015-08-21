@@ -111,7 +111,7 @@ public class StructureGraphComparisonResult {
 		for (Entry<String, IStructureModification> m : modifications.entrySet()) {
 			IStructureElement element = getElementByIdentifier(m.getKey());
 
-			if (m.getValue().getType() == type && element.getIdentifier().equals(identifier)) {
+			if (m.getValue().getType() == type && element.getName().equals(identifier)) {
 				elements.add(getElementByIdentifier(m.getKey()));
 			}
 		}

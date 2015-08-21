@@ -25,24 +25,24 @@ import org.iti.structureGraph.nodes.IStructureElement;
 
 public class Element implements IStructureElement {
 
-	private String identifier = "";
+	private String name = "";
 	private boolean mandatory = false;
 	private boolean optionalList = false;
 
-	public Element(String identifier) {
-		this.identifier = identifier;
+	public Element(String name) {
+		this.name = name;
 	}
 
-	public Element(String identifier, boolean mandatory, boolean optionalList) {
-		this(identifier);
+	public Element(String name, boolean mandatory, boolean optionalList) {
+		this(name);
 
 		this.mandatory = mandatory;
 		this.optionalList = optionalList;
 	}
 
 	@Override
-	public String getIdentifier() {
-		return identifier;
+	public String getName() {
+		return name;
 	}
 
 	@Override

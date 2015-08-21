@@ -159,7 +159,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 			IModificationDetail detail) {
 		String path = graph.getPath(element);
 
-		return new StructureElementModification(path, element.getIdentifier(), type, detail);
+		return new StructureElementModification(path, element.getName(), type, detail);
 	}
 
 	private void setMovedNodes() throws AmbiguousMoveException {
@@ -175,7 +175,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	private IStructureElement findMovedElement(IStructureElement element) throws AmbiguousMoveException {
 		Collection<IStructureElement> addedElements;
 
-		addedElements = result.getElementsByIdentifier(element.getIdentifier(), Type.NodeAdded);
+		addedElements = result.getElementsByIdentifier(element.getName(), Type.NodeAdded);
 
 		switch (addedElements.size()) {
 			case 0: return null;
