@@ -44,11 +44,11 @@ public interface IStructureGraph {
 
 	String getPath(IStructureElement structureElement, boolean toRootElement);
 
-	List<String> getIdentifiers();
-
 	List<IStructureElement> getStructureElements(String path);
 
 	List<IStructureElement> getStructureElements(String path, boolean directAncestorsOnly);
+
+	List<String> getIdentifiers();
 
 	List<String> getPathes();
 }
