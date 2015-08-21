@@ -31,9 +31,9 @@ public class StructureGraphComparerTestHelper {
 	static Element re = new Element("re");
 	static Element cn1 = new Element("cn1");
 	static Element cn2 = new Element("cn2");
-	static Element cn3 = new Element("cn3", true);
+	static Element cn3 = new Element("cn3", true, false);
 	static Element cn4 = new Element("cn4");
-	static Element cn5 = new Element("cn5", true);
+	static Element cn5 = new Element("cn5", true, false);
 	static Element cn6 = new Element("cn6");
 	static Element cn7 = new Element("cn7");
 	static Element cn8 = new Element("cn8");

@@ -17,20 +17,43 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 
 		removeNonMandatoryNodeAdditions(result);
 
+		removeOptionalListNodeAdditions(result);
+
 		return result;
 	}
 
 	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result) {
 		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
-			if (!(element.isMandatory() && parentExists(result, element))) {
+			if (!(element.isOptionalList() || (element.isMandatory() && parentExists(result, element)))) {
+				String fullIdentifier = result.getNewGraph().getIdentifier(element);
+				String path = result.getNewGraph().getPath(element);
+
+				result.removeModification(fullIdentifier);
+				result.removeModification(path);
+
+				for (IStructureModification modification : result.getPathModifications().values()) {
+					if (modification.getType() == Type.PathAdded
+							&& elementIsPartOfPath((StructurePathModification) modification, element)) {
+						result.removeModification(modification.getIdentifier());
+					}
+				}
+			}
+		}
+	}
+
+	private void removeOptionalListNodeAdditions(StructureGraphComparisonResult result) {
+		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
+			if (element.isOptionalList()) {
+				String optionalListElementPath = result.getNewGraph().getPath(element);
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
 
 				result.removeModification(fullIdentifier);
 
-				for (IStructureModification modification : result.getPathModifications().values()) {
-					if (modification.getType() == Type.PathAdded && elementIsPartOfPath((StructurePathModification)modification, element)) {
-						result.removeModification(modification.getIdentifier());
-					}
+				for (IStructureElement optionalListElement : result.getOldGraph()
+						.getStructureElements(optionalListElementPath)) {
+					fullIdentifier = result.getOldGraph().getIdentifier(optionalListElement);
+
+					result.removeModification(fullIdentifier);
 				}
 			}
 		}
@@ -41,7 +64,8 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		String fullIdentifierParent = result.getNewGraph().getIdentifier(parent);
 		IStructureElement parentInOldGraph = result.getOldGraph().getStructureElement(fullIdentifierParent);
 
-		return parentInOldGraph != null && result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
+		return parentInOldGraph != null
+				&& result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
 	}
 
 	private boolean elementIsPartOfPath(StructurePathModification modification, IStructureElement element) {
