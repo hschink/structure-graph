@@ -28,8 +28,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 public interface IStructureGraph {
 
-	boolean containsElementWithPath(String path);
-
 	IStructureElement getStructureElement(String identifier);
 
 	DefaultEdge getEdge(String path);

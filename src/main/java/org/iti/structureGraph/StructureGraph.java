@@ -155,11 +155,6 @@ public class StructureGraph implements IStructureGraph {
 	}
 
 	@Override
-	public boolean containsElementWithPath(String path) {
-		return elementsByIdentifer.containsKey(path);
-	}
-
-	@Override
 	public IStructureElement getStructureElement(String identifier) {
 		return elementsByIdentifer.get(identifier);
 	}

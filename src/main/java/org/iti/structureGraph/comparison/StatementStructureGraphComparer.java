@@ -64,8 +64,8 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		String fullIdentifierParent = result.getNewGraph().getIdentifier(parent);
 		IStructureElement parentInOldGraph = result.getOldGraph().getStructureElement(fullIdentifierParent);
 
-		return parentInOldGraph != null
-				&& result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
+		return parentInOldGraph != null && result.getOldGraph()
+				.getStructureElement(result.getOldGraph().getIdentifier(parentInOldGraph)) != null;
 	}
 
 	private boolean elementIsPartOfPath(StructurePathModification modification, IStructureElement element) {

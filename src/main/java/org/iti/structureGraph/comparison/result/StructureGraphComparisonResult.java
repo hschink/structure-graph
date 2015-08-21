@@ -98,14 +98,10 @@ public class StructureGraphComparisonResult {
 		return elements;
 	}
 
-	private IStructureElement getElementByPath(String path) {
-		if (oldGraph.containsElementWithPath(path)) {
-			return oldGraph.getStructureElement(path);
-		} else if (newGraph.containsElementWithPath(path)) {
-			return newGraph.getStructureElement(path);
-		}
+	private IStructureElement getElementByPath(String identifier) {
+		IStructureElement element = oldGraph.getStructureElement(identifier);
 
-		return null;
+		return (element != null) ? element : newGraph.getStructureElement(identifier);
 	}
 
 	public Collection<IStructureElement> getElementsByIdentifier(String identifier,
