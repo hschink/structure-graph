@@ -36,6 +36,7 @@ import org.iti.structureGraph.helper.Element;
 import org.iti.structureGraph.nodes.IStructureElement;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -162,6 +163,16 @@ public class StructureGraphNodeComparerTest {
 		comparer.compare(structureGraphOriginal, structureGraphCurrent);
 	}
 
+	@Test(expected=AmbiguousRenameException.class)
+	public void previousResultOfAmbiguousRenameExceptionExists() throws StructureGraphComparisonException {
+		try {
+			throwsAmbiguousRenameException();
+		} catch (StructureGraphComparisonException ex) {
+			Assert.assertNotNull(((AmbiguousRenameException)ex).getPreviousResult());
+			throw ex;
+		}
+	}
+
 	@Test(expected=AmbiguousMoveException.class)
 	public void throwsAmbiguousMoveException() throws StructureGraphComparisonException {
 		Element movedElement = new Element("cn6");
@@ -176,6 +187,16 @@ public class StructureGraphNodeComparerTest {
 		StructureGraph structureGraphCurrent = new StructureGraph(currentGraph);
 
 		comparer.compare(structureGraphOriginal, structureGraphCurrent);
+	}
+
+	@Test(expected=AmbiguousMoveException.class)
+	public void previousResultOfAmbiguousMoveExceptionExists() throws StructureGraphComparisonException {
+		try {
+			throwsAmbiguousMoveException();
+		} catch (StructureGraphComparisonException ex) {
+			Assert.assertNotNull(((AmbiguousMoveException)ex).getPreviousResult());
+			throw ex;
+		}
 	}
 
 	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
