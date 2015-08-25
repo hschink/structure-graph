@@ -38,7 +38,7 @@ import org.junit.Test;
 
 public class StatementStructureGraphComparerTest {
 
-	private static IStructureGraphComparer comparer = new StatementStructureGraphComparer();
+	private static StatementStructureGraphComparer comparer = new StatementStructureGraphComparer();
 
 	private static StructureGraph structureGraph;
 
@@ -100,6 +100,15 @@ public class StatementStructureGraphComparerTest {
 	}
 
 	@Test
+	public void ignoresMandatoryNodes() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenMissingMandatoryNode(statementGraph);
+
+		whenComparisonResultIsCreated(true);
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	@Test
 	public void handlesMissingOptionalParameter() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenParentNodeWithOptionalListChildIsMissing(statementGraph);
 
@@ -109,10 +118,14 @@ public class StatementStructureGraphComparerTest {
 	}
 
 	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
+		whenComparisonResultIsCreated(false);
+	}
+
+	private void whenComparisonResultIsCreated(boolean ignoreMandatoryNodes) throws StructureGraphComparisonException {
 
 		StructureGraph structureGraphCurrent = new StructureGraph(statementGraph);
 
-		result = comparer.compare(structureGraphCurrent, structureGraph);
+		result = comparer.compare(structureGraphCurrent, structureGraph, ignoreMandatoryNodes);
 
 	}
 }

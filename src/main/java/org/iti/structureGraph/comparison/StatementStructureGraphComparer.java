@@ -12,6 +12,11 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 	@Override
 	public StructureGraphComparisonResult compare(IStructureGraph statement, IStructureGraph structure)
 			throws StructureGraphComparisonException {
+		return compare(statement, structure, false);
+	}
+
+	public StructureGraphComparisonResult compare(IStructureGraph statement, IStructureGraph structure,
+			boolean ignoreMandatoryNodes) throws StructureGraphComparisonException {
 		IStructureGraphComparer comparer = new SimpleStructureGraphComparer();
 		StructureGraphComparisonResult result = comparer.compare(statement, structure);
 
