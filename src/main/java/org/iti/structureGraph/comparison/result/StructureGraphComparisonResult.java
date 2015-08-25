@@ -91,28 +91,28 @@ public class StructureGraphComparisonResult {
 
 		for (Entry<String, IStructureModification> m : modifications.entrySet()) {
 			if (m.getValue().getType() == type) {
-				elements.add(getElementByIdentifier(m.getKey()));
+				elements.add(getElementByName(m.getKey()));
 			}
 		}
 
 		return elements;
 	}
 
-	private IStructureElement getElementByIdentifier(String identifier) {
-		IStructureElement element = oldGraph.getStructureElement(identifier);
+	private IStructureElement getElementByName(String name) {
+		IStructureElement element = oldGraph.getStructureElement(name);
 
-		return (element != null) ? element : newGraph.getStructureElement(identifier);
+		return (element != null) ? element : newGraph.getStructureElement(name);
 	}
 
-	public Collection<IStructureElement> getElementsByIdentifier(String identifier,
+	public Collection<IStructureElement> getElementsByName(String name,
 			Type type) {
 		List<IStructureElement> elements = new ArrayList<>();
 
 		for (Entry<String, IStructureModification> m : modifications.entrySet()) {
-			IStructureElement element = getElementByIdentifier(m.getKey());
+			IStructureElement element = getElementByName(m.getKey());
 
-			if (m.getValue().getType() == type && element.getName().equals(identifier)) {
-				elements.add(getElementByIdentifier(m.getKey()));
+			if (m.getValue().getType() == type && element.getName().equals(name)) {
+				elements.add(getElementByName(m.getKey()));
 			}
 		}
 

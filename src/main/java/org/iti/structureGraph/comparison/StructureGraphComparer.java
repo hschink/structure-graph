@@ -203,7 +203,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	private IStructureElement findMovedElement(IStructureElement element) throws AmbiguousMoveException {
 		Collection<IStructureElement> addedElements;
 
-		addedElements = result.getElementsByIdentifier(element.getName(), Type.NodeAdded);
+		addedElements = result.getElementsByName(element.getName(), Type.NodeAdded);
 
 		switch (addedElements.size()) {
 			case 0: return null;
