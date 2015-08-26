@@ -20,16 +20,20 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		IStructureGraphComparer comparer = new SimpleStructureGraphComparer();
 		StructureGraphComparisonResult result = comparer.compare(statement, structure);
 
-		removeNonMandatoryNodeAdditions(result);
+		removeNonMandatoryNodeAdditions(result, ignoreMandatoryNodes);
 
 		removeOptionalListNodeAdditions(result);
 
 		return result;
 	}
 
-	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result) {
+	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result, boolean ignoreMandatoryNodes) {
+		boolean detectMandatoryNodes = !ignoreMandatoryNodes;
+
 		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
-			if (!(element.isOptionalList() || (element.isMandatory() && parentExists(result, element)))) {
+			if (element.isOptionalList() || (detectMandatoryNodes && isNodeRequiredByStatement(result, element))) {
+				continue;
+			} else {
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
 				String path = result.getNewGraph().getPath(element);
 
@@ -44,6 +48,10 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 				}
 			}
 		}
+	}
+
+	private boolean isNodeRequiredByStatement(StructureGraphComparisonResult result, IStructureElement element) {
+		return element.isMandatory() && parentExistsInStatementGraph(result, element);
 	}
 
 	private void removeOptionalListNodeAdditions(StructureGraphComparisonResult result) {
@@ -64,7 +72,7 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		}
 	}
 
-	private boolean parentExists(StructureGraphComparisonResult result, IStructureElement element) {
+	private boolean parentExistsInStatementGraph(StructureGraphComparisonResult result, IStructureElement element) {
 		IStructureElement parent = result.getNewGraph().getParent(element);
 		String fullIdentifierParent = result.getNewGraph().getIdentifier(parent);
 		IStructureElement parentInOldGraph = result.getOldGraph().getStructureElement(fullIdentifierParent);
