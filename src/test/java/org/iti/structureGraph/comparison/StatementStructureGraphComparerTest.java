@@ -38,7 +38,7 @@ import org.junit.Test;
 
 public class StatementStructureGraphComparerTest {
 
-	private static IStructureGraphComparer comparer = new StatementStructureGraphComparer();
+	private static StatementStructureGraphComparer comparer = new StatementStructureGraphComparer();
 
 	private static StructureGraph structureGraph;
 
@@ -66,9 +66,7 @@ public class StatementStructureGraphComparerTest {
 	public void detectsSubgraphIsomorphism() throws StructureGraphComparisonException {
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
-		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+		assertEquals(0, result.getModifications().size());
 	}
 
 	@Test
@@ -77,8 +75,6 @@ public class StatementStructureGraphComparerTest {
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn12, structureGraph, expectedModifications);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -90,8 +86,6 @@ public class StatementStructureGraphComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -102,7 +96,14 @@ public class StatementStructureGraphComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	@Test
+	public void ignoresMandatoryNodes() throws StructureGraphComparisonException {
+		StatementGraphComparerTestHelper.givenMissingMandatoryNode(statementGraph);
+
+		whenComparisonResultIsCreated(true);
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -113,16 +114,18 @@ public class StatementStructureGraphComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
 	private void whenComparisonResultIsCreated() throws StructureGraphComparisonException {
+		whenComparisonResultIsCreated(false);
+	}
+
+	private void whenComparisonResultIsCreated(boolean ignoreMandatoryNodes) throws StructureGraphComparisonException {
 
 		StructureGraph structureGraphCurrent = new StructureGraph(statementGraph);
 
-		result = comparer.compare(structureGraphCurrent, structureGraph);
+		result = comparer.compare(structureGraphCurrent, structureGraph, ignoreMandatoryNodes);
 
 	}
 }

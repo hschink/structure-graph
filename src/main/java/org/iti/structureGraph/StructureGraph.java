@@ -119,7 +119,7 @@ public class StructureGraph implements IStructureGraph {
 
 	private String getPathString(List<IStructureElement> pathElements,
 			boolean includeLastElement) {
-		StringBuilder identifier = new StringBuilder();
+		StringBuilder names = new StringBuilder();
 		int closingBracketCount = pathElements.size() - 1 - ((includeLastElement) ? 0 : 1);
 
 		for (int x = 0; x < pathElements.size(); x++) {
@@ -132,31 +132,26 @@ public class StructureGraph implements IStructureGraph {
 				IStructureElement element2 = (successorExists) ? pathElements.get(x + 1) : null;
 				DefaultEdge edge = (successorExists) ? getEdge(element1, element2) : null;
 
-				identifier.append(element1.getIdentifier());
+				names.append(element1.getName());
 
 				if (successorExists) {
-					identifier.append("." + edge.getClass().getSimpleName());
+					names.append("." + edge.getClass().getSimpleName());
 
 					if (!isNextToLastElement || includeLastElement) {
-						identifier.append("(");
+						names.append("(");
 					}
 				}
 			}
 		}
 
-		identifier.append(StringUtils.repeat(")", closingBracketCount));
+		names.append(StringUtils.repeat(")", closingBracketCount));
 
-		return identifier.toString();
+		return names.toString();
 	}
 
 	private DefaultEdge getEdge(IStructureElement element1,
 			IStructureElement element2) {
 		return graph.getAllEdges(element1, element2).iterator().next();
-	}
-
-	@Override
-	public boolean containsElementWithPath(String path) {
-		return elementsByIdentifer.containsKey(path);
 	}
 
 	@Override

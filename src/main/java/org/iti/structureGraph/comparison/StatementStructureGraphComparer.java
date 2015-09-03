@@ -12,19 +12,28 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 	@Override
 	public StructureGraphComparisonResult compare(IStructureGraph statement, IStructureGraph structure)
 			throws StructureGraphComparisonException {
+		return compare(statement, structure, false);
+	}
+
+	public StructureGraphComparisonResult compare(IStructureGraph statement, IStructureGraph structure,
+			boolean ignoreMandatoryNodes) throws StructureGraphComparisonException {
 		IStructureGraphComparer comparer = new SimpleStructureGraphComparer();
 		StructureGraphComparisonResult result = comparer.compare(statement, structure);
 
-		removeNonMandatoryNodeAdditions(result);
+		removeNonMandatoryNodeAdditions(result, ignoreMandatoryNodes);
 
 		removeOptionalListNodeAdditions(result);
 
 		return result;
 	}
 
-	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result) {
+	private void removeNonMandatoryNodeAdditions(StructureGraphComparisonResult result, boolean ignoreMandatoryNodes) {
+		boolean detectMandatoryNodes = !ignoreMandatoryNodes;
+
 		for (IStructureElement element : result.getElementsByModification(Type.NodeAdded)) {
-			if (!(element.isOptionalList() || (element.isMandatory() && parentExists(result, element)))) {
+			if (element.isOptionalList() || (detectMandatoryNodes && isNodeRequiredByStatement(result, element))) {
+				continue;
+			} else {
 				String fullIdentifier = result.getNewGraph().getIdentifier(element);
 				String path = result.getNewGraph().getPath(element);
 
@@ -39,6 +48,10 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 				}
 			}
 		}
+	}
+
+	private boolean isNodeRequiredByStatement(StructureGraphComparisonResult result, IStructureElement element) {
+		return element.isMandatory() && parentExistsInStatementGraph(result, element);
 	}
 
 	private void removeOptionalListNodeAdditions(StructureGraphComparisonResult result) {
@@ -59,13 +72,13 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 		}
 	}
 
-	private boolean parentExists(StructureGraphComparisonResult result, IStructureElement element) {
+	private boolean parentExistsInStatementGraph(StructureGraphComparisonResult result, IStructureElement element) {
 		IStructureElement parent = result.getNewGraph().getParent(element);
 		String fullIdentifierParent = result.getNewGraph().getIdentifier(parent);
 		IStructureElement parentInOldGraph = result.getOldGraph().getStructureElement(fullIdentifierParent);
 
-		return parentInOldGraph != null
-				&& result.getOldGraph().containsElementWithPath(result.getOldGraph().getIdentifier(parentInOldGraph));
+		return parentInOldGraph != null && result.getOldGraph()
+				.getStructureElement(result.getOldGraph().getIdentifier(parentInOldGraph)) != null;
 	}
 
 	private boolean elementIsPartOfPath(StructurePathModification modification, IStructureElement element) {

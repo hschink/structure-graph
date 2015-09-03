@@ -119,7 +119,7 @@ public class StructureGraphTest {
 		structureElements.put("re.Edge4(cn2.Edge6(cn6))", cn6);
 
 		for (Entry<String, IStructureElement> entry : structureElements.entrySet()) {
-			assertEquals(String.format("Cannot find element \"%s\" in graph!", entry.getValue().getIdentifier()),
+			assertEquals(String.format("Cannot find element \"%s\" in graph!", entry.getValue().getName()),
 					entry.getKey(),
 					structureGraph.getIdentifier(entry.getValue()));
 		}

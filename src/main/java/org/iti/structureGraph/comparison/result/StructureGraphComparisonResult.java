@@ -91,32 +91,28 @@ public class StructureGraphComparisonResult {
 
 		for (Entry<String, IStructureModification> m : modifications.entrySet()) {
 			if (m.getValue().getType() == type) {
-				elements.add(getElementByPath(m.getKey()));
+				elements.add(getElementByName(m.getKey()));
 			}
 		}
 
 		return elements;
 	}
 
-	private IStructureElement getElementByPath(String path) {
-		if (oldGraph.containsElementWithPath(path)) {
-			return oldGraph.getStructureElement(path);
-		} else if (newGraph.containsElementWithPath(path)) {
-			return newGraph.getStructureElement(path);
-		}
+	private IStructureElement getElementByName(String name) {
+		IStructureElement element = oldGraph.getStructureElement(name);
 
-		return null;
+		return (element != null) ? element : newGraph.getStructureElement(name);
 	}
 
-	public Collection<IStructureElement> getElementsByIdentifier(String identifier,
+	public Collection<IStructureElement> getElementsByName(String name,
 			Type type) {
 		List<IStructureElement> elements = new ArrayList<>();
 
 		for (Entry<String, IStructureModification> m : modifications.entrySet()) {
-			IStructureElement element = getElementByPath(m.getKey());
+			IStructureElement element = getElementByName(m.getKey());
 
-			if (m.getValue().getType() == type && element.getIdentifier().equals(identifier)) {
-				elements.add(getElementByPath(m.getKey()));
+			if (m.getValue().getType() == type && element.getName().equals(name)) {
+				elements.add(getElementByName(m.getKey()));
 			}
 		}
 

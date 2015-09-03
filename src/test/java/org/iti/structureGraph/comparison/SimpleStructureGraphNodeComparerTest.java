@@ -79,8 +79,6 @@ public class SimpleStructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -90,8 +88,6 @@ public class SimpleStructureGraphNodeComparerTest {
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(currentGraph, expectedModifications);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
@@ -105,8 +101,6 @@ public class SimpleStructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -118,8 +112,6 @@ public class SimpleStructureGraphNodeComparerTest {
 
 		whenComparisonResultIsCreated();
 
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
-
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}
 
@@ -130,8 +122,6 @@ public class SimpleStructureGraphNodeComparerTest {
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StructureGraphComparerTestHelper.cn6, new StructureGraph(currentGraph), expectedModifications);
 
 		whenComparisonResultIsCreated();
-
-		assertEquals(expectedModifications.size(), result.getNodeModifications().size());
 
 		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
 	}

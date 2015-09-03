@@ -80,7 +80,7 @@ public class SimpleStructureGraphComparer implements IStructureGraphComparer {
 		for (IStructureElement element : elements) {
 			String fullIdentifier = graph.getIdentifier(element);
 			String path = graph.getPath(element);
-			StructureElementModification modification = new StructureElementModification(path, element.getIdentifier(), type);
+			StructureElementModification modification = new StructureElementModification(path, element.getName(), type);
 
 			result.addModification(fullIdentifier, modification);
 		}

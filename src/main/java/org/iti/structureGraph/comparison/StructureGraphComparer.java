@@ -41,12 +41,40 @@ import org.jgrapht.graph.DefaultEdge;
 
 public class StructureGraphComparer implements IStructureGraphComparer {
 
-	public static class AmbiguousRenameException extends StructureGraphComparisonException {
-		private static final long serialVersionUID = -3176377321899125075L;
+	public static interface IAmbiguousException {
+		StructureGraphComparisonResult getPreviousResult();
 	}
 
-	public static class AmbiguousMoveException extends StructureGraphComparisonException {
+	public static class AmbiguousRenameException extends StructureGraphComparisonException implements IAmbiguousException {
+		private static final long serialVersionUID = -3176377321899125075L;
+
+		private StructureGraphComparisonResult previousResult;
+
+		public AmbiguousRenameException(StructureGraphComparisonResult previousResult) {
+			this.previousResult = previousResult;
+		}
+
+		@Override
+		public StructureGraphComparisonResult getPreviousResult() {
+			return previousResult;
+		}
+	}
+
+	public static class AmbiguousMoveException extends StructureGraphComparisonException implements IAmbiguousException {
 		private static final long serialVersionUID = -3666070878704536627L;
+
+		private StructureGraphComparisonResult previousResult;
+
+		public AmbiguousMoveException(StructureGraphComparisonResult previousResult) {
+			this.previousResult = previousResult;
+		}
+
+		@Override
+		public StructureGraphComparisonResult getPreviousResult() {
+			return previousResult;
+		}
+
+
 	}
 
 	private StructureGraphComparisonResult result;
@@ -123,7 +151,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 					IStructureElement addedElement = addedElementsInPath.get(0);
 
 					return addedElement;
-				default: throw new AmbiguousRenameException();
+				default: throw new AmbiguousRenameException(result);
 			}
 		}
 
@@ -159,7 +187,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 			IModificationDetail detail) {
 		String path = graph.getPath(element);
 
-		return new StructureElementModification(path, element.getIdentifier(), type, detail);
+		return new StructureElementModification(path, element.getName(), type, detail);
 	}
 
 	private void setMovedNodes() throws AmbiguousMoveException {
@@ -175,7 +203,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	private IStructureElement findMovedElement(IStructureElement element) throws AmbiguousMoveException {
 		Collection<IStructureElement> addedElements;
 
-		addedElements = result.getElementsByIdentifier(element.getIdentifier(), Type.NodeAdded);
+		addedElements = result.getElementsByName(element.getName(), Type.NodeAdded);
 
 		switch (addedElements.size()) {
 			case 0: return null;
@@ -185,7 +213,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 
 				return addedElement;
 
-			default: throw new AmbiguousMoveException();
+			default: throw new AmbiguousMoveException(result);
 		}
 	}
 

@@ -28,8 +28,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 public interface IStructureGraph {
 
-	boolean containsElementWithPath(String path);
-
 	IStructureElement getStructureElement(String identifier);
 
 	DefaultEdge getEdge(String path);
@@ -46,11 +44,11 @@ public interface IStructureGraph {
 
 	String getPath(IStructureElement structureElement, boolean toRootElement);
 
-	List<String> getIdentifiers();
-
 	List<IStructureElement> getStructureElements(String path);
 
 	List<IStructureElement> getStructureElements(String path, boolean directAncestorsOnly);
+
+	List<String> getIdentifiers();
 
 	List<String> getPathes();
 }
