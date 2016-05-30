@@ -1,6 +1,5 @@
 package org.iti.structureGraph.comparison;
 
-import org.iti.structureGraph.StructureGraph;
 import org.iti.structureGraph.helper.Edge2;
 import org.iti.structureGraph.helper.Edge3;
 import org.iti.structureGraph.helper.Element;
@@ -31,7 +30,7 @@ public class StatementGraphComparerTestHelper {
 	static Element cn331 = new Element("cn331", false, false);
 	static Element cn332 = new Element("cn332", false, false);
 
-	static StructureGraph getOriginal() {
+	static DirectedGraph<IStructureElement, DefaultEdge> getOriginal() {
 		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
 
 		originalGraph.addVertex(cn1);
@@ -63,7 +62,7 @@ public class StatementGraphComparerTestHelper {
 		originalGraph.addEdge(cn30, cn32, new Edge3());
 		originalGraph.addEdge(cn30, cn33, new Edge3());
 
-		return new StructureGraph(originalGraph);
+		return originalGraph;
 	}
 
 	static SimpleDirectedGraph<IStructureElement, DefaultEdge> getCurrentGraph() {

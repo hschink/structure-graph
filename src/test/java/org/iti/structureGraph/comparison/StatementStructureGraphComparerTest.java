@@ -49,12 +49,11 @@ public class StatementStructureGraphComparerTest {
 	private StructureGraphComparisonResult result;
 
 	@BeforeClass
-	public static void init() throws Exception {
-		structureGraph = StatementGraphComparerTestHelper.getOriginal();
-	}
+	public static void init() throws Exception { }
 
 	@Before
 	public void setUp() throws Exception {
+		structureGraph = new StructureGraph(StatementGraphComparerTestHelper.getOriginal());
 		statementGraph = StatementGraphComparerTestHelper.getCurrentGraph();
 
 		expectedModifications.clear();
@@ -90,7 +89,7 @@ public class StatementStructureGraphComparerTest {
 	}
 
 	@Test
-	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
+	public void removesOnlyOptionalElementFromResultWhenMandatoryNodeIsMissing() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(statementGraph);
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn32, structureGraph, expectedModifications);
 
