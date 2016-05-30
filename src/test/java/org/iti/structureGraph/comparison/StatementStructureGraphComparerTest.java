@@ -49,12 +49,11 @@ public class StatementStructureGraphComparerTest {
 	private StructureGraphComparisonResult result;
 
 	@BeforeClass
-	public static void init() throws Exception {
-		structureGraph = StatementGraphComparerTestHelper.getOriginal();
-	}
+	public static void init() throws Exception { }
 
 	@Before
 	public void setUp() throws Exception {
+		structureGraph = new StructureGraph(StatementGraphComparerTestHelper.getOriginal());
 		statementGraph = StatementGraphComparerTestHelper.getCurrentGraph();
 
 		expectedModifications.clear();
@@ -90,9 +89,22 @@ public class StatementStructureGraphComparerTest {
 	}
 
 	@Test
-	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
+	public void removesOnlyOptionalElementFromResultWhenMandatoryNodeIsMissing() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(statementGraph);
 		StructureGraphComparerTestHelper.givenExpectedNodeAddition(StatementGraphComparerTestHelper.cn32, structureGraph, expectedModifications);
+
+		whenComparisonResultIsCreated();
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	@Test
+	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
+        DirectedGraph<IStructureElement, DefaultEdge> targetGraph = StatementGraphComparerTestHelper.getOriginal();
+		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(targetGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeRemoval(StatementGraphComparerTestHelper.cn32, new StructureGraph(statementGraph), expectedModifications);
+
+        structureGraph = new StructureGraph(targetGraph);
 
 		whenComparisonResultIsCreated();
 

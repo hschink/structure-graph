@@ -1,12 +1,13 @@
 package org.iti.structureGraph.comparison;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.iti.structureGraph.IStructureGraph;
 import org.iti.structureGraph.StructureGraph;
 import org.iti.structureGraph.comparison.result.IModificationDetail;
 import org.iti.structureGraph.comparison.result.OriginalStructureElement;
@@ -157,10 +158,17 @@ public class StructureGraphComparerTestHelper {
 	}
 
 	static void givenExpectedNodeAddition(IStructureElement element,
-			StructureGraph currentGraph,
+			IStructureGraph currentGraph,
 			Map<String, Type> expectedModifications) {
 
 		expectedModifications.put(currentGraph.getIdentifier(element), Type.NodeAdded);
+	}
+
+	static void givenExpectedNodeRemoval (IStructureElement element,
+			IStructureGraph currentGraph,
+			Map<String, Type> expectedModifications) {
+
+		expectedModifications.put(currentGraph.getIdentifier(element), Type.NodeDeleted);
 	}
 
 	static void givenExpectedPathAddition(DirectedGraph<IStructureElement, DefaultEdge> currentGraph,

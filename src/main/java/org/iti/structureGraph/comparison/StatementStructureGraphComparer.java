@@ -64,9 +64,11 @@ public class StatementStructureGraphComparer implements IStructureGraphComparer 
 
 				for (IStructureElement optionalListElement : result.getOldGraph()
 						.getStructureElements(optionalListElementPath)) {
-					fullIdentifier = result.getOldGraph().getIdentifier(optionalListElement);
+					if (!optionalListElement.isMandatory()) {
+						fullIdentifier = result.getOldGraph().getIdentifier(optionalListElement);
 
-					result.removeModification(fullIdentifier);
+						result.removeModification(fullIdentifier);
+					}
 				}
 			}
 		}
