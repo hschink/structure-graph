@@ -164,6 +164,13 @@ public class StructureGraphComparerTestHelper {
 		expectedModifications.put(currentGraph.getIdentifier(element), Type.NodeAdded);
 	}
 
+	static void givenExpectedNodeRemoval (IStructureElement element,
+			IStructureGraph currentGraph,
+			Map<String, Type> expectedModifications) {
+
+		expectedModifications.put(currentGraph.getIdentifier(element), Type.NodeDeleted);
+	}
+
 	static void givenExpectedPathAddition(DirectedGraph<IStructureElement, DefaultEdge> currentGraph,
 			Map<String, Type> expectedModifications) {
 		givenExpectedPathAddition("re.Edge1(cn1.Edge7)", expectedModifications);

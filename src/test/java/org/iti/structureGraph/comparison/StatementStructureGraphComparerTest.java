@@ -99,6 +99,19 @@ public class StatementStructureGraphComparerTest {
 	}
 
 	@Test
+	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
+        DirectedGraph<IStructureElement, DefaultEdge> targetGraph = StatementGraphComparerTestHelper.getOriginal();
+		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(targetGraph);
+		StructureGraphComparerTestHelper.givenExpectedNodeRemoval(StatementGraphComparerTestHelper.cn32, new StructureGraph(statementGraph), expectedModifications);
+
+        structureGraph = new StructureGraph(targetGraph);
+
+		whenComparisonResultIsCreated();
+
+		StructureGraphComparerTestHelper.assertModificationExpectations(expectedModifications, result);
+	}
+
+	@Test
 	public void ignoresMandatoryNodes() throws StructureGraphComparisonException {
 		StatementGraphComparerTestHelper.givenMissingMandatoryNode(statementGraph);
 
