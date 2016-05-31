@@ -102,7 +102,6 @@ public class StatementStructureGraphComparerTest {
 	public void removesOnlyOptionalElementFromResult() throws StructureGraphComparisonException {
         DirectedGraph<IStructureElement, DefaultEdge> targetGraph = StatementGraphComparerTestHelper.getStructureGraph();
 		StatementGraphComparerTestHelper.givenMissingMandatoryNodeNextToOptionalListNode(targetGraph);
-		StructureGraphComparerTestHelper.givenExpectedNodeRemoval(StatementGraphComparerTestHelper.cn32, new StructureGraph(statementGraph), expectedModifications);
 
         structureGraph = new StructureGraph(targetGraph);
 

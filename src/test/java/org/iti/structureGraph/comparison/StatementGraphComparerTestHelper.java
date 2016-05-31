@@ -24,7 +24,9 @@ public class StatementGraphComparerTestHelper {
 	static Element cn3 = new Element("cn3");
 	static Element cn30 = new Element("cn30");
 	static Element cn31 = new Element("cn31", true, false);
+	static Element cn310 = new Element("cn31", false, false);
 	static Element cn32 = new Element("cn32", true, false);
+	static Element cn320 = new Element("cn32", false, false);
 	static Element cn33 = new Element("cn33", false, true);
 	static Element cn330 = new Element("cn330", false, false);
 	static Element cn331 = new Element("cn331", false, false);
@@ -86,8 +88,8 @@ public class StatementGraphComparerTestHelper {
 		statementGraph.addEdge(cn10, cn12, new Edge3());
 
 		statementGraph.addEdge(cn3, cn30, new Edge2());
-		statementGraph.addEdge(cn30, cn31, new Edge3());
-		statementGraph.addEdge(cn30, cn32, new Edge3());
+		statementGraph.addEdge(cn30, cn310, new Edge3());
+		statementGraph.addEdge(cn30, cn320, new Edge3());
 		statementGraph.addEdge(cn30, cn330, new Edge3());
 		statementGraph.addEdge(cn30, cn331, new Edge3());
 		statementGraph.addEdge(cn30, cn332, new Edge3());
@@ -107,13 +109,13 @@ public class StatementGraphComparerTestHelper {
 
 	public static void givenMissingMandatoryNodeNextToOptionalListNode(
 			DirectedGraph<IStructureElement, DefaultEdge> graph) {
-		graph.removeVertex(cn32);
+		graph.removeVertex(cn320);
 	}
 
 	public static void givenParentNodeWithOptionalListChildIsMissing(DirectedGraph<IStructureElement, DefaultEdge> graph) {
 		graph.removeVertex(cn30);
-		graph.removeVertex(cn31);
-		graph.removeVertex(cn32);
+		graph.removeVertex(cn310);
+		graph.removeVertex(cn320);
 		graph.removeVertex(cn330);
 		graph.removeVertex(cn331);
 		graph.removeVertex(cn332);
