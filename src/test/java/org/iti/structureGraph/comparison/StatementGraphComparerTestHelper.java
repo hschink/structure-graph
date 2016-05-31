@@ -30,69 +30,69 @@ public class StatementGraphComparerTestHelper {
 	static Element cn331 = new Element("cn331", false, false);
 	static Element cn332 = new Element("cn332", false, false);
 
-	static DirectedGraph<IStructureElement, DefaultEdge> getOriginal() {
-		DirectedGraph<IStructureElement, DefaultEdge> originalGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
+	static DirectedGraph<IStructureElement, DefaultEdge> getStructureGraph() {
+		DirectedGraph<IStructureElement, DefaultEdge> structureGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
 
-		originalGraph.addVertex(cn1);
-		originalGraph.addVertex(cn10);
-		originalGraph.addVertex(cn11);
-		originalGraph.addVertex(cn12);
+		structureGraph.addVertex(cn1);
+		structureGraph.addVertex(cn10);
+		structureGraph.addVertex(cn11);
+		structureGraph.addVertex(cn12);
 
-		originalGraph.addVertex(cn2);
-		originalGraph.addVertex(cn20);
-		originalGraph.addVertex(cn21);
-		originalGraph.addVertex(cn22);
+		structureGraph.addVertex(cn2);
+		structureGraph.addVertex(cn20);
+		structureGraph.addVertex(cn21);
+		structureGraph.addVertex(cn22);
 
-		originalGraph.addVertex(cn3);
-		originalGraph.addVertex(cn30);
-		originalGraph.addVertex(cn31);
-		originalGraph.addVertex(cn32);
-		originalGraph.addVertex(cn33);
+		structureGraph.addVertex(cn3);
+		structureGraph.addVertex(cn30);
+		structureGraph.addVertex(cn31);
+		structureGraph.addVertex(cn32);
+		structureGraph.addVertex(cn33);
 
-		originalGraph.addEdge(cn1, cn10, new Edge2());
-		originalGraph.addEdge(cn10, cn11, new Edge3());
-		originalGraph.addEdge(cn10, cn12, new Edge3());
+		structureGraph.addEdge(cn1, cn10, new Edge2());
+		structureGraph.addEdge(cn10, cn11, new Edge3());
+		structureGraph.addEdge(cn10, cn12, new Edge3());
 
-		originalGraph.addEdge(cn2, cn20, new Edge2());
-		originalGraph.addEdge(cn20, cn21, new Edge3());
-		originalGraph.addEdge(cn20, cn22, new Edge3());
+		structureGraph.addEdge(cn2, cn20, new Edge2());
+		structureGraph.addEdge(cn20, cn21, new Edge3());
+		structureGraph.addEdge(cn20, cn22, new Edge3());
 
-		originalGraph.addEdge(cn3, cn30, new Edge2());
-		originalGraph.addEdge(cn30, cn31, new Edge3());
-		originalGraph.addEdge(cn30, cn32, new Edge3());
-		originalGraph.addEdge(cn30, cn33, new Edge3());
+		structureGraph.addEdge(cn3, cn30, new Edge2());
+		structureGraph.addEdge(cn30, cn31, new Edge3());
+		structureGraph.addEdge(cn30, cn32, new Edge3());
+		structureGraph.addEdge(cn30, cn33, new Edge3());
 
-		return originalGraph;
+		return structureGraph;
 	}
 
-	static SimpleDirectedGraph<IStructureElement, DefaultEdge> getCurrentGraph() {
-		SimpleDirectedGraph<IStructureElement, DefaultEdge> currentGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
+	static SimpleDirectedGraph<IStructureElement, DefaultEdge> getStatementGraph() {
+		SimpleDirectedGraph<IStructureElement, DefaultEdge> statementGraph = new SimpleDirectedGraph<IStructureElement, DefaultEdge>(DefaultEdge.class);
 
-		currentGraph.addVertex(cn1);
-		currentGraph.addVertex(cn10);
-		currentGraph.addVertex(cn11);
-		currentGraph.addVertex(cn12);
+		statementGraph.addVertex(cn1);
+		statementGraph.addVertex(cn10);
+		statementGraph.addVertex(cn11);
+		statementGraph.addVertex(cn12);
 
-		currentGraph.addVertex(cn3);
-		currentGraph.addVertex(cn30);
-		currentGraph.addVertex(cn31);
-		currentGraph.addVertex(cn32);
-		currentGraph.addVertex(cn330);
-		currentGraph.addVertex(cn331);
-		currentGraph.addVertex(cn332);
+		statementGraph.addVertex(cn3);
+		statementGraph.addVertex(cn30);
+		statementGraph.addVertex(cn310);
+		statementGraph.addVertex(cn320);
+		statementGraph.addVertex(cn330);
+		statementGraph.addVertex(cn331);
+		statementGraph.addVertex(cn332);
 
-		currentGraph.addEdge(cn1, cn10, new Edge2());
-		currentGraph.addEdge(cn10, cn11, new Edge3());
-		currentGraph.addEdge(cn10, cn12, new Edge3());
+		statementGraph.addEdge(cn1, cn10, new Edge2());
+		statementGraph.addEdge(cn10, cn11, new Edge3());
+		statementGraph.addEdge(cn10, cn12, new Edge3());
 
-		currentGraph.addEdge(cn3, cn30, new Edge2());
-		currentGraph.addEdge(cn30, cn31, new Edge3());
-		currentGraph.addEdge(cn30, cn32, new Edge3());
-		currentGraph.addEdge(cn30, cn330, new Edge3());
-		currentGraph.addEdge(cn30, cn331, new Edge3());
-		currentGraph.addEdge(cn30, cn332, new Edge3());
+		statementGraph.addEdge(cn3, cn30, new Edge2());
+		statementGraph.addEdge(cn30, cn31, new Edge3());
+		statementGraph.addEdge(cn30, cn32, new Edge3());
+		statementGraph.addEdge(cn30, cn330, new Edge3());
+		statementGraph.addEdge(cn30, cn331, new Edge3());
+		statementGraph.addEdge(cn30, cn332, new Edge3());
 
-		return currentGraph;
+		return statementGraph;
 	}
 
 	public static void givenMissingMandatoryNode(DirectedGraph<IStructureElement, DefaultEdge> graph) {
