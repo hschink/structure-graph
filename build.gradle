@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 
 group = 'org.iti.structureGraph'
 version = '0.0.2'
-sourceCompatibility = 7
+sourceCompatibility = 8
 
 buildscript {
     repositories {
