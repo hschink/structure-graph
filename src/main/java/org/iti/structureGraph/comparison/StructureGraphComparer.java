@@ -23,6 +23,7 @@ package org.iti.structureGraph.comparison;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,8 +189,19 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	}
 
 	private void setMovedNodes() throws AmbiguousMoveException {
-		for (Entry<String, List<IStructureElement>> removedInPath : removedNodesByPath.entrySet()) {
-			for (IStructureElement removedElement : removedInPath.getValue()) {
+		List<String> paths = new ArrayList<>(removedNodesByPath.keySet());
+
+		paths.sort(new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+		});
+
+		for (String path : paths) {
+			List<IStructureElement> removedInPath = removedNodesByPath.get(path);
+
+			for (IStructureElement removedElement : removedInPath) {
 				IStructureElement movedElement = findMovedElement(removedElement);
 
 				exchangeNode(removedElement, movedElement, Type.NodeMoved);
@@ -198,9 +210,18 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	}
 
 	private IStructureElement findMovedElement(IStructureElement element) throws AmbiguousMoveException {
-		Collection<IStructureElement> addedElements;
+		Collection<IStructureElement> addedElements = result.getElementsByName(element.getName(), Type.NodeAdded);
+		IStructureElement oldParent = oldGraph.getParent(element);
 
-		addedElements = result.getElementsByName(element.getName(), Type.NodeAdded);
+		if (oldParent != null) {
+			IStructureElement movedParent = getMovedParent(oldParent);
+
+			for (IStructureElement addedElement : addedElements) {
+				if (newGraph.getParent(addedElement).equals(movedParent)) {
+					return addedElement;
+				}
+			}
+		}
 
 		switch (addedElements.size()) {
 		case 0:
@@ -214,6 +235,19 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		default:
 			throw new AmbiguousMoveException(result);
 		}
+	}
+
+	private IStructureElement getMovedParent(IStructureElement oldParent) {
+		String parentIdentifier = oldGraph.getIdentifier(oldParent);
+
+		for (Entry<String, IStructureModification> m : result.getNodeModifications().entrySet()) {
+			if ((m.getValue().getType().equals(Type.NodeMoved) || m.getValue().getType().equals(Type.NodeRenamed))
+					&& m.getValue().getModificationDetail().getIdentifier().equals(parentIdentifier)) {
+				return newGraph.getStructureElement(m.getKey());
+			}
+		}
+
+		return null;
 	}
 
 	private void setRenamedPathes() {
