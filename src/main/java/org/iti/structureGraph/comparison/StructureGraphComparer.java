@@ -45,7 +45,8 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		StructureGraphComparisonResult getPreviousResult();
 	}
 
-	public static class AmbiguousRenameException extends StructureGraphComparisonException implements IAmbiguousException {
+	public static class AmbiguousRenameException extends StructureGraphComparisonException
+			implements IAmbiguousException {
 		private static final long serialVersionUID = -3176377321899125075L;
 
 		private StructureGraphComparisonResult previousResult;
@@ -60,7 +61,8 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		}
 	}
 
-	public static class AmbiguousMoveException extends StructureGraphComparisonException implements IAmbiguousException {
+	public static class AmbiguousMoveException extends StructureGraphComparisonException
+			implements IAmbiguousException {
 		private static final long serialVersionUID = -3666070878704536627L;
 
 		private StructureGraphComparisonResult previousResult;
@@ -74,7 +76,6 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 			return previousResult;
 		}
 
-
 	}
 
 	private StructureGraphComparisonResult result;
@@ -86,8 +87,8 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 	private Map<String, List<IStructureElement>> addedNodesByPath;
 
 	@Override
-	public StructureGraphComparisonResult compare(IStructureGraph oldGraph,
-			IStructureGraph newGraph) throws StructureGraphComparisonException {
+	public StructureGraphComparisonResult compare(IStructureGraph oldGraph, IStructureGraph newGraph)
+			throws StructureGraphComparisonException {
 		SimpleStructureGraphComparer simpleStructureGraphComparer = new SimpleStructureGraphComparer();
 
 		result = simpleStructureGraphComparer.compare(oldGraph, newGraph);
@@ -112,8 +113,7 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		addedNodesByPath = getNodesByPath(newGraph, addedNodes);
 	}
 
-	private static Map<String, List<IStructureElement>> getNodesByPath(
-			IStructureGraph graph,
+	private static Map<String, List<IStructureElement>> getNodesByPath(IStructureGraph graph,
 			Collection<IStructureElement> elements) {
 		Map<String, List<IStructureElement>> missingNodesByPath = new HashMap<>();
 
@@ -140,31 +140,32 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		}
 	}
 
-	private IStructureElement findRenamedElement(String path,
-			IStructureElement removedElement) throws AmbiguousRenameException {
+	private IStructureElement findRenamedElement(String path, IStructureElement removedElement)
+			throws AmbiguousRenameException {
 		List<IStructureElement> addedElementsInPath = addedNodesByPath.get(path);
 
 		if (addedElementsInPath != null) {
 			switch (addedElementsInPath.size()) {
-				case 0: return null;
-				case 1:
-					IStructureElement addedElement = addedElementsInPath.get(0);
+			case 0:
+				return null;
+			case 1:
+				IStructureElement addedElement = addedElementsInPath.get(0);
 
-					return addedElement;
-				default: throw new AmbiguousRenameException(result);
+				return addedElement;
+			default:
+				throw new AmbiguousRenameException(result);
 			}
 		}
 
 		return null;
 	}
 
-	private void exchangeNode(IStructureElement removedElement,
-			IStructureElement addedElement,
-			Type type) {
+	private void exchangeNode(IStructureElement removedElement, IStructureElement addedElement, Type type) {
 		if (addedElement != null) {
 			String fullIdentifier = result.getNewGraph().getIdentifier(addedElement);
 			IModificationDetail detail = getModificationDetail(result.getOldGraph(), removedElement);
-			StructureElementModification modification = getModification(result.getNewGraph(), addedElement, type, detail);
+			StructureElementModification modification = getModification(result.getNewGraph(), addedElement, type,
+					detail);
 
 			result.removeModification(oldGraph.getIdentifier(removedElement));
 			result.removeModification(newGraph.getIdentifier(addedElement));
@@ -173,17 +174,13 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		}
 	}
 
-	private IModificationDetail getModificationDetail(
-			IStructureGraph graph,
-			IStructureElement element) {
+	private IModificationDetail getModificationDetail(IStructureGraph graph, IStructureElement element) {
 		String fullIdentifier = graph.getIdentifier(element);
 
 		return new OriginalStructureElement(fullIdentifier);
 	}
 
-	private StructureElementModification getModification(IStructureGraph graph,
-			IStructureElement element,
-			Type type,
+	private StructureElementModification getModification(IStructureGraph graph, IStructureElement element, Type type,
 			IModificationDetail detail) {
 		String path = graph.getPath(element);
 
@@ -206,14 +203,16 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 		addedElements = result.getElementsByName(element.getName(), Type.NodeAdded);
 
 		switch (addedElements.size()) {
-			case 0: return null;
+		case 0:
+			return null;
 
-			case 1:
-				IStructureElement addedElement = addedElements.iterator().next();
+		case 1:
+			IStructureElement addedElement = addedElements.iterator().next();
 
-				return addedElement;
+			return addedElement;
 
-			default: throw new AmbiguousMoveException(result);
+		default:
+			throw new AmbiguousMoveException(result);
 		}
 	}
 
@@ -244,7 +243,8 @@ public class StructureGraphComparer implements IStructureGraphComparer {
 			IStructureElement source = newGraph.getSourceElement(edge);
 			IStructureElement target = newGraph.getSourceElement(edge);
 			IModificationDetail detail = new OriginalStructureElement(removedPath);
-			IStructureModification modification = new StructurePathModification(addedPath, edge, source, target, type, detail);
+			IStructureModification modification = new StructurePathModification(addedPath, edge, source, target, type,
+					detail);
 
 			result.removeModification(addedPath);
 			result.removeModification(removedPath);
